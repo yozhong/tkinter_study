@@ -9,11 +9,8 @@ window.title('My Window')
 # 第3步，設定視窗的大小(長x寬)
 window.geometry('500x300')
 
-# 第4步，pack 放置方法
-tk.Label(window, text='P', fg='red').pack(side='top')     # 上
-tk.Label(window, text='P', fg='red').pack(side='bottom')  # 下
-tk.Label(window, text='P', fg='red').pack(side='left')    # 左
-tk.Label(window, text='P', fg='red').pack(side='right')   # 右
+# 第4步，place 放置方法（精準的放置到指定座標點的位置上）
+tk.Label(window, text='Pl', font=('Arial', 20), ).place(x=50, y=100, anchor='nw')
 
 # 第5步，主視窗迴圈顯示
 window.mainloop()
