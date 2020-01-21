@@ -9,31 +9,36 @@ window.title('My Window')
 # 第3步，設定視窗的大小(長x寬)
 window.geometry('500x300')
 
-# 第4步，在圖形介面上設定輸入框控制元件entry框並放置
-e = tk.Entry(window)
-e.pack()
+# 第4步，在圖形介面上建立一個標籤label用以顯示並放置
+var1 = tk.StringVar()  # 建立變數，用var1用來接收滑鼠點選具體選項的內容
+label = tk.Label(window, bg='green', fg='yellow', font=('Arial', 12), width=10, textvariable=var1)
+label.pack()
 
 
-# 第5步，定義兩個觸發事件時的函式insert_point和insert_end（注意：因為Python的執行順序是從上往下，所以函式一定要放在按鈕的上面）
-def insert_point():  # 在滑鼠焦點處插入輸入內容
-    var = e.get()
-    t.insert('insert', var)
+# 第6步，建立一個方法用於按鈕的點選事件
+def print_selection():
+    value = lb.get(lb.curselection())  # 獲取當前選中的文字
+    var1.set(value)  # 為label設定值
 
 
-def insert_end():  # 在文字框內容最後接著插入輸入內容
-    var = e.get()
-    t.insert('end', var)
-
-
-# 第6步，建立並放置兩個按鈕分別觸發兩種情況
-b1 = tk.Button(window, text='insert point', width=10, height=2, command=insert_point)
+# 第5步，建立一個按鈕並放置，點選按鈕呼叫print_selection函式
+b1 = tk.Button(window, text='print selection', width=15, height=2, command=print_selection)
 b1.pack()
-b2 = tk.Button(window, text='insert end', width=10, height=2, command=insert_end)
-b2.pack()
 
-# 第7步，建立並放置一個多行文字框text用以顯示，指定height=3為文字框是三個字元高度
-t = tk.Text(window, height=3)
-t.pack()
+# 第7步，建立Listbox併為其新增內容
+var2 = tk.StringVar()
+var2.set((1, 2, 3, 4))
+
+lb = tk.Listbox(window, listvariable=var2)
+
+list_items = [11, 22, 33, 44]
+for item in list_items:
+    lb.insert('end', item)  # 從最後一個位置開始加入值
+
+lb.insert(1, 'first')   # 在第一個位置加入'first'字元
+lb.insert(2, 'second')  # 在第二個位置加入'second'字元
+lb.delete(2)            # 刪除第二個位置的字元
+lb.pack()
 
 # 第8步，主視窗迴圈顯示
 window.mainloop()
