@@ -1,19 +1,5 @@
 import tkinter as tk
 
-# 定義一個函式功能，供點選Button按鍵時呼叫，呼叫命令引數command=函式名
-on_hit = False
-
-
-def hit_me():
-    global on_hit
-    if on_hit:
-        on_hit = False
-        var.set('')
-    else:
-        on_hit = True
-        var.set('You hit me')
-
-
 # 第1步，例項化object，建立視窗window
 window = tk.Tk()
 
@@ -23,16 +9,31 @@ window.title('My Window')
 # 第3步，設定視窗的大小(長x寬)
 window.geometry('500x300')
 
-# 第4步，在圖形介面上設定標籤
-var = tk.StringVar()
-# 將label標籤的內容設定為字元型別，用var來接收hit_me函式的傳出內容用以顯示在標籤上
-label = tk.Label(window, textvariable=var, bg='green', font=('Arial', 12), width=30, height=2)
-# 說明： bg為背景，font為字型，width為長，height為高，這裡的長和高是字元的長和高，比如height=2,就是標籤有2個字元這麼高
-label.pack()
+# 第4步，在圖形介面上設定輸入框控制元件entry框並放置
+e = tk.Entry(window)
+e.pack()
 
-# 第5步，在視窗介面設定放置Button按鍵
-button = tk.Button(window, text='Hit me', font=('Arial', 12), width=10, height=1, command=hit_me)
-button.pack()
 
-# 第6步，主視窗迴圈顯示
+# 第5步，定義兩個觸發事件時的函式insert_point和insert_end（注意：因為Python的執行順序是從上往下，所以函式一定要放在按鈕的上面）
+def insert_point():  # 在滑鼠焦點處插入輸入內容
+    var = e.get()
+    t.insert('insert', var)
+
+
+def insert_end():  # 在文字框內容最後接著插入輸入內容
+    var = e.get()
+    t.insert('end', var)
+
+
+# 第6步，建立並放置兩個按鈕分別觸發兩種情況
+b1 = tk.Button(window, text='insert point', width=10, height=2, command=insert_point)
+b1.pack()
+b2 = tk.Button(window, text='insert end', width=10, height=2, command=insert_end)
+b2.pack()
+
+# 第7步，建立並放置一個多行文字框text用以顯示，指定height=3為文字框是三個字元高度
+t = tk.Text(window, height=3)
+t.pack()
+
+# 第8步，主視窗迴圈顯示
 window.mainloop()
