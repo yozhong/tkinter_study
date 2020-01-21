@@ -10,35 +10,23 @@ window.title('My Window')
 window.geometry('500x300')
 
 # 第4步，在圖形介面上建立一個標籤label用以顯示並放置
-var1 = tk.StringVar()  # 建立變數，用var1用來接收滑鼠點選具體選項的內容
-label = tk.Label(window, bg='green', fg='yellow', font=('Arial', 12), width=10, textvariable=var1)
+var = tk.StringVar()    # 定義一個var用來將radiobutton的值和Label的值聯絡在一起.
+label = tk.Label(window, bg='yellow', fg='black', width=20, text='empty')
 label.pack()
 
 
-# 第6步，建立一個方法用於按鈕的點選事件
+# 第6步，定義選項觸發函式功能
 def print_selection():
-    value = lb.get(lb.curselection())  # 獲取當前選中的文字
-    var1.set(value)  # 為label設定值
+    label.config(text='you have selected ' + var.get())
 
 
-# 第5步，建立一個按鈕並放置，點選按鈕呼叫print_selection函式
-b1 = tk.Button(window, text='print selection', width=15, height=2, command=print_selection)
-b1.pack()
+# 第5步，建立三個radiobutton選項，其中variable=var, value='A'的意思就是，當我們滑鼠選中了其中一個選項，把value的值A放到變數var中，然後賦值給variable
+r1 = tk.Radiobutton(window, text='Option A', variable=var, value='A', command=print_selection)
+r1.pack()
+r2 = tk.Radiobutton(window, text='Option B', variable=var, value='B', command=print_selection)
+r2.pack()
+r3 = tk.Radiobutton(window, text='Option C', variable=var, value='C', command=print_selection)
+r3.pack()
 
-# 第7步，建立Listbox併為其新增內容
-var2 = tk.StringVar()
-var2.set((1, 2, 3, 4))
-
-lb = tk.Listbox(window, listvariable=var2)
-
-list_items = [11, 22, 33, 44]
-for item in list_items:
-    lb.insert('end', item)  # 從最後一個位置開始加入值
-
-lb.insert(1, 'first')   # 在第一個位置加入'first'字元
-lb.insert(2, 'second')  # 在第二個位置加入'second'字元
-lb.delete(2)            # 刪除第二個位置的字元
-lb.pack()
-
-# 第8步，主視窗迴圈顯示
+# 第7步，主視窗迴圈顯示
 window.mainloop()
